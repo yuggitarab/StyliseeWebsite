@@ -1,0 +1,16 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log
+
+# Deployment artefacts
+deploy/
+
+# Secrets — never commit
+.env
+.env.*

@@ -1,0 +1,72 @@
+# Stylisee Marketing Site — Apache / cPanel .htaccess
+# ============================================================
+# 1. Force HTTPS
+# ============================================================
+RewriteEngine On
+
+# Redirect HTTP → HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ============================================================
+# 2. www → apex (www.stylisee.com → stylisee.com)
+#    Change the condition and target if you prefer apex → www
+# ============================================================
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# ============================================================
+# 3. Clean directory-style routes (no trailing-slash enforcement)
+#    Let Apache serve /about/ → /about/index.html automatically
+# ============================================================
+
+# If a directory, serve its index.html
+DirectoryIndex index.html
+
+# ============================================================
+# 4. 404 fallback
+# ============================================================
+ErrorDocument 404 /404/index.html
+
+# ============================================================
+# 5. Cache headers
+# ============================================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html             "access plus 1 hour"
+  ExpiresByType text/css              "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/png             "access plus 1 year"
+  ExpiresByType image/svg+xml        "access plus 1 year"
+  ExpiresByType image/x-icon         "access plus 1 year"
+</IfModule>
+
+# Fingerprinted assets — immutable cache
+<FilesMatch "\.(css|js)$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+
+# ============================================================
+# 6. Security headers
+# ============================================================
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# ============================================================
+# 7. Compression
+# ============================================================
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# ============================================================
+# 8. Block access to hidden files
+# ============================================================
+<FilesMatch "^\.">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
