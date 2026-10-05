@@ -47,7 +47,8 @@ Each page folder contains index.html so Apache can serve clean URLs such as /pri
 - Pages use HTML, CSS and vanilla JavaScript. The contact form also requires PHP 8.0+ and a working hosting mail service; no Node.js server, database or package installation is required on cPanel.
 - The four main marketing screens are exported from the React/Vite website in the Replit workspace using its shared Stylisee design-system styles. Source packages and workspace folders are deliberately not uploaded to this repository.
 - Main marketing pages use near-black surfaces, gold and burgundy accents, square geometry, Cinzel headings and Raleway body text.
-- Policy pages and the 404 page currently retain their existing styles, including Playfair Display and DM Sans. Do not delete assets/style.css or assets/main.js until those pages are migrated.
+- Privacy and Terms use the same Stylisee design-system typography, colours, header and footer as the main website. Their existing March 2026 legal text is preserved. They use assets/index-DSeEqsVo.css and the existing assets/marketing-f56cb6647c44.js.
+- Refund Policy, Cookie Policy, Data Processing, Security and the 404 page retain their existing styles. Do not delete assets/style.css or assets/main.js until those pages are migrated.
 - Fonts are loaded from Google Fonts and require network access.
 - Asset filenames can change after a new export. Update the HTML references and upload all newly referenced assets together.
 
@@ -66,7 +67,7 @@ Do not change the application subdomain DNS while deploying the marketing websit
 
 | Item | Files to update |
 | --- | --- |
-| Marketing content and design | Update the Replit source and export the four marketing pages and assets, or carefully edit the static files here. A later export may overwrite direct HTML edits. |
+| Marketing content and design | Update the Replit source and export the four marketing pages plus Privacy and Terms and their assets, or carefully edit the static files here. A later export may overwrite direct HTML edits. |
 | Pricing | Keep pricing/index.html and the pricing data in assets/marketing-index-C0j6UP0Y.js synchronized; update the live application's plans separately if required. |
 | Contact | contact/index.html, its referenced marketing script, and contact-submit.php. Enquiries go to support@stylisee.com through cPanel PHP mail(). The form displays an on-page thank-you only after the host accepts the email; it does not send an automatic reply. |
 | Policies | The corresponding policy HTML file; preserve the actual legal content when changing its layout. |

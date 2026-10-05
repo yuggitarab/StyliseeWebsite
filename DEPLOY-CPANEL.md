@@ -151,6 +151,20 @@ To update content after deployment:
 
 Test using a local HTTP server or staging host, not by opening index.html with file://: the pages use root-relative asset paths. Verify the live site after uploading.
 
+### Privacy and Terms styling
+
+Privacy and Terms now share the main website layout and Stylisee design-system styles. Their full March 2026 legal text is preserved, including all 13 sections in each document. Other policy pages remain unchanged.
+
+Pull and deploy the latest repository, or copy these files to the matching paths under /home/stylisee/public_html:
+
+- privacy/index.html
+- terms/index.html
+- assets/index-DSeEqsVo.css
+
+The pages also use the existing assets/marketing-f56cb6647c44.js runtime. Keep it in assets; upload the repository copy if it is missing from the server. No PHP, DNS or .htaccess change is needed. Upload the CSS before the updated HTML. Do not replace other pages with generic policy placeholders.
+
+The export now includes Home, Pricing, About, Contact, Privacy and Terms. The four remaining policy pages remain owned by the standalone repository. For formatting-only changes, preserve policy text and last-updated dates; the sitemap lastmod reflects website changes, not a new legal-policy date.
+
 ### Pricing navigation
 
 All website Pricing links use /pricing, including navigation on the legal pages. Sign-in and sign-up still use app.stylisee.com.
@@ -193,7 +207,7 @@ The Replit Vite preview does not run PHP or deliver emails. Backend regression c
 ### Current assets and favicon
 
 - Home, Pricing and About currently use assets/index-C0j6UP0Y.css and assets/marketing-index-C0j6UP0Y.js. Contact uses the newly referenced files listed above. Future exports may use new filenames; always upload each page with its referenced assets.
-- Legal pages and the 404 page still use assets/style.css and assets/main.js. Keep both until those pages are migrated.
+- Refund Policy, Cookie Policy, Data Processing, Security and the 404 page still use assets/style.css and assets/main.js. Keep both until those pages are migrated. Privacy and Terms use assets/index-DSeEqsVo.css and assets/marketing-f56cb6647c44.js.
 - Every page uses /favicon.png as the browser icon. Keep this file and clear the browser cache if the icon appears stale after replacing its contents.
 - The website wordmark is assets/images/stylisee-wordmark.png. The former assets/logo.svg and assets/images/stylisee-monogram.png files are no longer in the repository.
 - Manual uploads do not necessarily remove obsolete server files. Back up the site and remove only files confirmed to be unused; do not delete unrelated hosting files.
