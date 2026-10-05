@@ -1,6 +1,6 @@
 # Deploying Stylisee Marketing Site to cPanel
 
-> The website links to the verified custom domain `https://app.stylisee.com` for authentication and pricing. The application remains hosted on Replit with its existing Clerk authentication, backend, and data. Updating GitHub does not itself update cPanel: deploy the latest commit using your cPanel deployment process or upload the updated files. Do not change website, policy, email, or Clerk DNS records as part of this link update.
+> The website links to the verified custom domain `https://app.stylisee.com` for authentication. All website Pricing links use `/pricing`, the dedicated marketing-site page. The application remains hosted on Replit with its existing Clerk authentication, backend, and data. Updating GitHub does not itself update cPanel: deploy the latest commit using your cPanel deployment process or upload the updated files. Do not change website, policy, email, or Clerk DNS records as part of this link update.
 
 This guide explains how to upload the static marketing site to a cPanel hosting account
 and configure the domain so `stylisee.com` (and `www.stylisee.com`) serve this site while
@@ -126,7 +126,7 @@ Visit each URL and confirm the correct page loads:
 
 ## Step 6 — Verify the app subdomain still works
 
-Visit `https://app.stylisee.com/sign-in`, `https://app.stylisee.com/sign-up`, and `https://app.stylisee.com/pricing` and confirm they load normally.
+Visit `https://app.stylisee.com/sign-in` and `https://app.stylisee.com/sign-up` and confirm they load normally.
 Do not modify the DNS record for `app.stylisee.com`.
 
 ---
@@ -150,6 +150,12 @@ To update content after deployment:
 - **FTP**: overwrite changed files via FTP client.
 
 Test using a local HTTP server or staging host, not by opening index.html with file://: the pages use root-relative asset paths. Verify the live site after uploading.
+
+### Pricing navigation
+
+All website Pricing links use /pricing, including navigation on the legal pages. Sign-in and sign-up still use app.stylisee.com.
+
+For this update, pull the latest main branch and deploy the website HTML. If deploying manually, copy index.html and each page folder's index.html to the same paths under /home/stylisee/public_html. Include contact/index.html from the latest repository even if it was corrected previously, so an older deployed Contact page cannot retain the wrong link. No JavaScript, CSS, PHP handler, DNS or .htaccess changes are required for this Pricing-link correction. Pulling a repository outside public_html does not update the live website.
 
 ### Contact-form deployment
 
