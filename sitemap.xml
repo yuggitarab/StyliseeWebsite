@@ -2,52 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://stylisee.com/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-10-05T00:32:14Z</lastmod>
   </url>
   <url>
     <loc>https://stylisee.com/pricing/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-10-05T00:32:14Z</lastmod>
   </url>
   <url>
     <loc>https://stylisee.com/about/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-10-05T00:32:14Z</lastmod>
   </url>
   <url>
     <loc>https://stylisee.com/contact/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-10-05T00:32:14Z</lastmod>
   </url>
   <url>
     <loc>https://stylisee.com/privacy/</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
+    <lastmod>2026-09-12T22:24:03Z</lastmod>
   </url>
   <url>
     <loc>https://stylisee.com/terms/</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
+    <lastmod>2026-09-12T22:24:03Z</lastmod>
   </url>
   <url>
     <loc>https://stylisee.com/refund-policy/</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-09-12T22:24:03Z</lastmod>
   </url>
   <url>
     <loc>https://stylisee.com/cookie-policy/</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-09-12T22:24:03Z</lastmod>
   </url>
   <url>
     <loc>https://stylisee.com/data-processing/</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-09-12T22:24:03Z</lastmod>
   </url>
   <url>
     <loc>https://stylisee.com/security/</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
+    <lastmod>2026-09-12T22:24:03Z</lastmod>
   </url>
 </urlset>

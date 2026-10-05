@@ -66,7 +66,8 @@ dig www.stylisee.com CNAME +short
    - **Repository Path**: the document root (e.g. `/home/<user>/public_html`)
    - **Repository Name**: `stylisee-website`
 4. Click **Create** — cPanel clones the repo directly to `public_html`.
-5. For future updates: push to GitHub, then in cPanel Git Version Control click **Pull** (or enable auto-deploy via a webhook).
+5. For future updates, use the repository’s **Pull or Deploy** controls to update from the remote. The exact controls depend on your cPanel version and hosting setup.
+6. Automatic deployment is not configured by this repository; a GitHub commit alone does not guarantee that the live website updates. Confirm the document root contains the new files.
 
 ### Option C — FTP
 
@@ -121,6 +122,8 @@ Do not modify the DNS record for `app.stylisee.com`.
 1. Go to [Google Search Console](https://search.google.com/search-console).
 2. Add `https://stylisee.com` as a property and verify ownership.
 3. Submit `https://stylisee.com/sitemap.xml` under **Sitemaps**.
+4. The sitemap includes the ten public content pages, excludes the 404 page and app subdomain, and uses per-page Git modification timestamps. Refresh it when content or page URLs change.
+5. Confirm `https://stylisee.com/robots.txt` includes the sitemap address.
 
 ---
 
@@ -132,7 +135,15 @@ To update content after deployment:
 - **File Manager**: edit files directly in cPanel or re-upload changed files.
 - **FTP**: overwrite changed files via FTP client.
 
-Always test locally (open `index.html` in a browser) before deploying, and verify on the live site after.
+Test using a local HTTP server or staging host, not by opening index.html with file://: the pages use root-relative asset paths. Verify the live site after uploading.
+
+### Current assets and favicon
+
+- Main marketing pages use assets/index-C0j6UP0Y.css and assets/marketing-index-C0j6UP0Y.js. Upload the HTML and these assets together. Future exports may use new filenames.
+- Legal pages and the 404 page still use assets/style.css and assets/main.js. Keep both until those pages are migrated.
+- Every page uses /favicon.png as the browser icon. Keep this file and clear the browser cache if the icon appears stale after replacing its contents.
+- The website wordmark is assets/images/stylisee-wordmark.png. The former assets/logo.svg and assets/images/stylisee-monogram.png files are no longer in the repository.
+- Manual uploads do not necessarily remove obsolete server files. Back up the site and remove only files confirmed to be unused; do not delete unrelated hosting files.
 
 ---
 

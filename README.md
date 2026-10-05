@@ -1,73 +1,100 @@
 # Stylisee Marketing Website
 
-Static marketing site for [stylisee.com](https://stylisee.com) — the business suite for personal stylists, image consultants, and colour analysts.
+Static marketing website for [stylisee.com](https://stylisee.com), serving personal stylists, image consultants, and colour analysts. The application is separate at [app.stylisee.com](https://app.stylisee.com).
 
-## Structure
+## Current structure
 
-```
+```text
 StyliseeWebsite/
-├── index.html                 # Home / landing page
-├── pricing/index.html         # Pricing page
-├── about/index.html           # About page
-├── contact/index.html         # Contact page (mailto-based form)
-├── privacy/index.html         # Privacy Policy
-├── terms/index.html           # Terms & Conditions
-├── refund-policy/index.html   # Refund Policy
-├── cookie-policy/index.html   # Cookie Policy
-├── data-processing/index.html # Data Processing
-├── security/index.html        # Security page
-├── 404/index.html             # 404 error page
+├── index.html                         # Home
+├── pricing/index.html                 # Pricing and billing switch
+├── about/index.html                   # About
+├── contact/index.html                 # Contact form (opens an email client)
+├── privacy/index.html                 # Privacy policy
+├── terms/index.html                   # Terms and conditions
+├── refund-policy/index.html           # Refund policy
+├── cookie-policy/index.html           # Cookie policy
+├── data-processing/index.html         # Data processing
+├── security/index.html                # Security
+├── 404/index.html                     # Error page, excluded from sitemap
 ├── assets/
-│   ├── style.css              # Design system CSS (tokens + components)
-│   ├── main.js                # Vanilla JS (nav, scroll animations, toggle, form)
-│   ├── logo.svg               # Stylisee wordmark
+│   ├── index-C0j6UP0Y.css               # Current marketing-page styles
+│   ├── marketing-index-C0j6UP0Y.js      # Menu, pricing, FAQ and contact interactions
+│   ├── style.css                      # Existing policy and error-page styles
+│   ├── main.js                        # Existing policy and error-page script
 │   └── images/
-│       └── hero-styling.png   # Hero image
-├── favicon.png
-├── robots.txt
-├── sitemap.xml
-├── .htaccess                  # Apache: HTTPS, www redirect, 404, cache, headers
+│       ├── hero-styling.png
+│       └── stylisee-wordmark.png
+├── favicon.png                        # Browser icon used by every page
+├── robots.txt                         # Includes the sitemap URL
+├── sitemap.xml                        # Ten indexable public page URLs
+├── .htaccess                          # Apache redirects, error page and caching
 ├── .gitignore
-├── README.md                  # This file
-└── DEPLOY-CPANEL.md           # cPanel deployment guide
+├── README.md
+└── DEPLOY-CPANEL.md
 ```
 
-## Technology
+Each page folder contains index.html so Apache can serve clean URLs such as /pricing/. These are dedicated pages, not duplicate homepages.
 
-- Plain HTML5, CSS custom properties, vanilla JavaScript
-- No build step, no framework, no npm dependencies
-- Design tokens from the Stylisee design system, translated to self-contained CSS variables
-- Fonts: Playfair Display (headings) and DM Sans (body) via Google Fonts
+## Technology and design
 
-## Domain split
+- Deployable files are plain HTML, CSS and vanilla JavaScript; no Node.js server, database or package installation is required on cPanel.
+- The four main marketing screens are exported from the React/Vite website in the Replit workspace using its shared Stylisee design-system styles. Source packages and workspace folders are deliberately not uploaded to this repository.
+- Main marketing pages use near-black surfaces, gold and burgundy accents, square geometry, Cinzel headings and Raleway body text.
+- Policy pages and the 404 page currently retain their existing styles, including Playfair Display and DM Sans. Do not delete assets/style.css or assets/main.js until those pages are migrated.
+- Fonts are loaded from Google Fonts and require network access.
+- Asset filenames can change after a new export. Update the HTML references and upload all newly referenced assets together.
 
-| Host | Domain |
-|------|--------|
-| Marketing website (this repo) | `stylisee.com` / `www.stylisee.com` |
-| Application (Replit) | `app.stylisee.com` |
+## Domains and account links
 
-All Sign In and Sign Up links point to `https://app.stylisee.com/sign-in` and
-`https://app.stylisee.com/sign-up`. Public booking remains on `app.stylisee.com`.
+| Purpose | URL |
+| --- | --- |
+| Marketing website | https://stylisee.com/ |
+| Application | https://app.stylisee.com/ |
+| Sign In | https://app.stylisee.com/sign-in |
+| Get Started | https://app.stylisee.com/sign-up |
 
-## Content updates
+Do not change the application subdomain DNS while deploying the marketing website.
 
-| What to update | Where |
-|---|---|
-| Plan features and pricing | Log into app and update via admin; also update `pricing/index.html` if hardcoded |
-| Legal policy dates | Edit the `Last updated` line in the relevant page |
-| Contact email addresses | Edit `contact/index.html` and corresponding pages |
-| Hero image | Replace `assets/images/hero-styling.png` |
-| Logo | Replace `assets/logo.svg` and `favicon.png` |
+## Updating content
+
+| Item | Files to update |
+| --- | --- |
+| Marketing content and design | Update the Replit source and export the four marketing pages and assets, or carefully edit the static files here. A later export may overwrite direct HTML edits. |
+| Pricing | Keep pricing/index.html and the pricing data in assets/marketing-index-C0j6UP0Y.js synchronized; update the live application's plans separately if required. |
+| Contact | contact/index.html and its marketing script. The form opens a mailto link; it does not send email from a server. |
+| Policies | The corresponding policy HTML file; preserve the actual legal content when changing its layout. |
+| Hero image | assets/images/hero-styling.png |
+| Website wordmark | assets/images/stylisee-wordmark.png |
+| Browser favicon | favicon.png. Every page references /favicon.png; replace its contents without changing that path. |
+| Page URLs | Update navigation, canonical links and sitemap.xml together. |
+
+The former assets/logo.svg and assets/images/stylisee-monogram.png files have been removed. Do not restore references to those filenames. Preserve the favicon.png file.
+
+## Sitemap
+
+The search-engine sitemap is at [https://stylisee.com/sitemap.xml](https://stylisee.com/sitemap.xml). It lists Home, Pricing, About, Contact, Privacy, Terms, Refund Policy, Cookie Policy, Data Processing and Security. It excludes the 404 page, assets and the separate application subdomain.
+
+The lastmod timestamps reflect the most recent Git commits affecting each page at sitemap generation time. Refresh them when page content changes; do not change every timestamp merely because the sitemap was regenerated. robots.txt already advertises the sitemap URL.
+
+After deploying the file to cPanel, submit sitemap.xml in Google Search Console. A sitemap helps discovery but does not guarantee indexing.
+
+## Preview and deployment
+
+Serve the repository through a local HTTP server or a staging web host. Do not rely on opening index.html with file:// because asset URLs begin at the website root.
+
+See [DEPLOY-CPANEL.md](DEPLOY-CPANEL.md) for deployment instructions. Updating GitHub alone does not update the live cPanel website.
+
+## Cleanup safety
+
+Before deleting an asset, check all HTML, CSS and JavaScript references, including policy and error pages. Keep a backup. Manual uploads generally do not remove obsolete files from cPanel automatically. Verify references before removing old server copies, and avoid deleting unrelated hosting files.
 
 ## Before going live
 
-- [ ] Confirm every email address exists and is monitored
-- [ ] Confirm pricing proposition against live app plans
-- [ ] Confirm all policy dates are current
-- [ ] Review all legal pages with a qualified legal adviser
-- [ ] Test every link, including Sign In / Sign Up handoff
-- [ ] Check desktop, tablet, and mobile layouts
-- [ ] Verify keyboard navigation and colour contrast
-- [ ] Confirm HTTPS and www redirect work after DNS is pointed
-- [ ] Check canonical URLs and Open Graph metadata
-- [ ] Submit sitemap to Google Search Console
+- Confirm prices and policy content are accurate.
+- Test Sign In, Get Started, menu, pricing switch, FAQs and contact validation.
+- Check desktop and mobile layouts, keyboard navigation and colour contrast.
+- Verify the favicon, images, HTTPS redirects and real 404 response.
+- Confirm sitemap.xml and robots.txt are accessible.
+- Review legal pages with a qualified adviser and confirm support email is monitored.
+- Keep credentials, secrets and .env files out of this repository.
