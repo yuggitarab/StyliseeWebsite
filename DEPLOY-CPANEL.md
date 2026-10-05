@@ -1,5 +1,7 @@
 # Deploying Stylisee Marketing Site to cPanel
 
+> The website currently links to `https://stylique.replit.app` for authentication and pricing while `app.stylisee.com` is being connected. Updating GitHub does not itself update cPanel: deploy the latest commit using your cPanel deployment process or upload the updated files. Do not change website, policy, email, or Clerk DNS records as part of this link update.
+
 This guide explains how to upload the static marketing site to a cPanel hosting account
 and configure the domain so `stylisee.com` (and `www.stylisee.com`) serve this site while
 `app.stylisee.com` continues to run the Replit application.
@@ -122,7 +124,7 @@ Visit each URL and confirm the correct page loads:
 
 ## Step 6 — Verify the app subdomain still works
 
-Visit `https://app.stylisee.com` and confirm the Replit application loads normally.
+Visit `https://stylique.replit.app/sign-in`, `https://stylique.replit.app/sign-up`, and `https://stylique.replit.app/pricing` and confirm they load normally.
 Do not modify the DNS record for `app.stylisee.com`.
 
 ---

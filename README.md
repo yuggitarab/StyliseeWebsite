@@ -1,6 +1,8 @@
 # Stylisee Marketing Website
 
-Static marketing website for [stylisee.com](https://stylisee.com), serving personal stylists, image consultants, and colour analysts. The application is separate at [app.stylisee.com](https://app.stylisee.com).
+> Temporary application links use `https://stylique.replit.app`. Switch them back to `https://app.stylisee.com` only after the custom domain is connected, HTTPS works, and sign-in/sign-up are verified.
+
+Static marketing website for [stylisee.com](https://stylisee.com), serving personal stylists, image consultants, and colour analysts. The application is separate at [stylique.replit.app](https://stylique.replit.app).
 
 ## Current structure
 
@@ -51,9 +53,9 @@ Each page folder contains index.html so Apache can serve clean URLs such as /pri
 | Purpose | URL |
 | --- | --- |
 | Marketing website | https://stylisee.com/ |
-| Application | https://app.stylisee.com/ |
-| Sign In | https://app.stylisee.com/sign-in |
-| Get Started | https://app.stylisee.com/sign-up |
+| Application | https://stylique.replit.app/ |
+| Sign In | https://stylique.replit.app/sign-in |
+| Get Started | https://stylique.replit.app/sign-up |
 
 Do not change the application subdomain DNS while deploying the marketing website.
 
