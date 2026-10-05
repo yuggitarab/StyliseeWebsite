@@ -112,15 +112,39 @@ $headers = [
     'Content-Transfer-Encoding: quoted-printable',
 ];
 $mailSubject = '=?UTF-8?B?' . base64_encode('[Stylisee enquiry] ' . $subject) . '?=';
-$accepted = is_callable('mail') && @mail(
-    'support@stylisee.com',
-    $mailSubject,
-    quoted_printable_encode($body),
-    implode("\r\n", $headers)
-);
-if (!$accepted) {
-    error_log('Stylisee contact: hosting mail service did not accept the enquiry.');
+
+function mailFailure(string $diagnostic): void
+{
+    // Hosting diagnostics stay in the server log, never in the browser response.
+    error_log('Stylisee contact: ' . $diagnostic);
     respond(503, 'We could not send your enquiry. Please try again later or email support@stylisee.com directly.');
+}
+
+if (!is_callable('mail')) {
+    mailFailure('[mail-unavailable] PHP mail() is disabled or unavailable. The host must enable it or provide authenticated SMTP.');
+}
+
+// The envelope sender is independent of the From header. Keep it fixed to the
+// existing local mailbox, never a visitor-controlled address or shell argument.
+error_clear_last();
+try {
+    $accepted = @mail(
+        'support@stylisee.com',
+        $mailSubject,
+        quoted_printable_encode($body),
+        implode("\r\n", $headers),
+        '-fsupport@stylisee.com'
+    );
+} catch (Throwable $error) {
+    $detail = substr(preg_replace('/[\r\n]+/', ' ', $error->getMessage()), 0, 500);
+    mailFailure('[mail-exception] ' . get_class($error) . ': ' . $detail);
+}
+if (!$accepted) {
+    $warning = error_get_last();
+    $detail = isset($warning['message'])
+        ? substr(preg_replace('/[\r\n]+/', ' ', $warning['message']), 0, 500)
+        : 'No PHP warning was reported. Check the host sendmail/Exim logs, sendmail_path and mail.force_extra_parameters settings.';
+    mailFailure('[mail-rejected] Hosting mail service did not accept the enquiry. ' . $detail);
 }
 
 // mail() confirms acceptance by the host, not delivery to the recipient's inbox.

@@ -168,6 +168,20 @@ Verify the handler URL returns a JSON response with HTTP 405 when opened directl
 
 After deploying, verify actual inbox delivery to support@stylisee.com. PHP mail() acceptance alone does not guarantee delivery. Check the mailbox spam folder, cPanel Email Deliverability and Email Routing, and the hosting error log if sending fails. The host must permit outbound mail. If your host requires authenticated SMTP instead, configure an SMTP delivery method rather than reporting success or switching back to mailto. Do not store SMTP credentials in GitHub.
 
+### Contact sending failures after creating the mailbox
+
+Mailbox creation does not enable PHP sending. The handler explicitly uses support@stylisee.com as the From address and envelope sender, while retaining the visitor as Reply-To. The fixed envelope sender can satisfy hosting sender restrictions, but cannot bypass a disabled PHP mail() function or a broken mail transport.
+
+For this sending/diagnostics update, replace only /home/stylisee/public_html/contact-submit.php with the latest repository version. No contact HTML, JavaScript, CSS or .htaccess replacement is required. Pulling the repository under /home/stylisee/repositories alone does not replace the live handler.
+
+After one submission, inspect the PHP error log for Stylisee contact entries. Depending on the hosting configuration, these may appear in cPanel Metrics > Errors, the PHP error_log file or the provider's central PHP logs. Do not make private error logs publicly accessible.
+
+- [mail-unavailable]: PHP mail() is disabled or unavailable. Ask the host to enable sending or supply secure authenticated SMTP settings.
+- [mail-rejected]: mail() returned false. The log includes any available PHP warning; otherwise the host must inspect sendmail/Exim, sendmail_path and mail.force_extra_parameters. Check that the account can use the fixed local envelope sender.
+- [mail-exception]: PHP raised a transport exception; the log records its type and message.
+
+The visitor still receives a generic failure, not internal hosting details. Do not interpret successful local fake-transport tests as proof of live mail delivery. Do not store SMTP passwords in this repository or share them in chat.
+
 The Replit Vite preview does not run PHP or deliver emails. Backend regression checks use a fake mail transport; they do not prove the cPanel mail service or the recipient inbox is configured.
 
 ### Current assets and favicon
