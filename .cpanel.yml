@@ -6,13 +6,14 @@ deployment:
       set -eu
       export DEPLOYPATH=/home/stylisee/public_html
       test -d "$DEPLOYPATH"
-      for file in index.html favicon.png robots.txt sitemap.xml .htaccess; do
+      for file in index.html favicon.png robots.txt sitemap.xml contact-submit.php .htaccess; do
         test -f "$file"
       done
       for directory in assets pricing about contact privacy terms refund-policy cookie-policy data-processing security 404; do
         test -d "$directory"
       done
       if [ "$(pwd -P)" != "$(cd "$DEPLOYPATH" && pwd -P)" ]; then
+        /bin/cp contact-submit.php "$DEPLOYPATH/"
         /bin/cp -R assets "$DEPLOYPATH/"
         /bin/cp -R pricing about contact privacy terms refund-policy cookie-policy data-processing security 404 "$DEPLOYPATH/"
         /bin/cp favicon.png robots.txt sitemap.xml "$DEPLOYPATH/"

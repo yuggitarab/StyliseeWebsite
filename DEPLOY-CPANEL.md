@@ -14,6 +14,8 @@ and configure the domain so `stylisee.com` (and `www.stylisee.com`) serve this s
 - FTP / File Manager access or cPanel's Git Version Control
 - SSL certificate for `stylisee.com` and `www.stylisee.com` (cPanel AutoSSL or Let's Encrypt)
 - DNS access to set A / CNAME records
+- PHP 8.0 or newer enabled for stylisee.com and PHP mail() enabled by the host
+- A monitored support@stylisee.com mailbox and correctly configured email routing / SPF / DKIM
 
 ---
 
@@ -149,9 +151,28 @@ To update content after deployment:
 
 Test using a local HTTP server or staging host, not by opening index.html with file://: the pages use root-relative asset paths. Verify the live site after uploading.
 
+### Contact-form deployment
+
+Upload or deploy all four contact-form files together:
+
+- contact-submit.php → /home/stylisee/public_html/contact-submit.php
+- contact/index.html → /home/stylisee/public_html/contact/index.html
+- assets/marketing-f56cb6647c44.js → the same path under public_html
+- assets/index-EX2Giq98.css → the same path under public_html
+
+The deployment tasks include the PHP handler and copy it before the updated page. If Deploy HEAD Commit is unavailable, copy these files using File Manager without copying .git or overwriting the existing server .htaccess.
+
+The form sends enquiries to support@stylisee.com and shows an on-page thank-you after PHP mail() reports that the host accepted the email. No acknowledgement email is sent to the visitor. The visitor's address is set as Reply-To, not From. The handler requires server-side PHP; a static-only hosting environment cannot send the enquiry.
+
+Verify the handler URL returns a JSON response with HTTP 405 when opened directly; this is expected because GET cannot send email. If it returns 404, the file has not reached the document root. If PHP source appears, stop using the form and ask the host to enable its PHP handler.
+
+After deploying, verify actual inbox delivery to support@stylisee.com. PHP mail() acceptance alone does not guarantee delivery. Check the mailbox spam folder, cPanel Email Deliverability and Email Routing, and the hosting error log if sending fails. The host must permit outbound mail. If your host requires authenticated SMTP instead, configure an SMTP delivery method rather than reporting success or switching back to mailto. Do not store SMTP credentials in GitHub.
+
+The Replit Vite preview does not run PHP or deliver emails. Backend regression checks use a fake mail transport; they do not prove the cPanel mail service or the recipient inbox is configured.
+
 ### Current assets and favicon
 
-- Main marketing pages use assets/index-C0j6UP0Y.css and assets/marketing-index-C0j6UP0Y.js. Upload the HTML and these assets together. Future exports may use new filenames.
+- Home, Pricing and About currently use assets/index-C0j6UP0Y.css and assets/marketing-index-C0j6UP0Y.js. Contact uses the newly referenced files listed above. Future exports may use new filenames; always upload each page with its referenced assets.
 - Legal pages and the 404 page still use assets/style.css and assets/main.js. Keep both until those pages are migrated.
 - Every page uses /favicon.png as the browser icon. Keep this file and clear the browser cache if the icon appears stale after replacing its contents.
 - The website wordmark is assets/images/stylisee-wordmark.png. The former assets/logo.svg and assets/images/stylisee-monogram.png files are no longer in the repository.
@@ -167,6 +188,8 @@ Test using a local HTTP server or staging host, not by opening index.html with f
 | www not redirecting to apex | `.htaccess` not being read | Check `AllowOverride All`; ensure `.htaccess` is in document root |
 | New CSS, scripts or images return 404 | HTML deployed without the full assets folder, or repository changes not deployed to the document root | Pull main and click Deploy HEAD Commit; inspect deployment logs and verify /home/stylisee/public_html/assets |
 | Deploy HEAD Commit unavailable | Missing .cpanel.yml, no branch, or dirty working tree | Pull the commit containing .cpanel.yml, select main, and review local changes before resolving them |
+| Contact form reports it cannot send | Missing PHP handler, disabled PHP mail(), or host mail configuration | Check contact-submit.php, PHP configuration, hosting error log, email routing and deliverability settings |
+| Thank-you appears but email is missing | Host accepted the email but delivery failed or it went to spam | Check support mailbox, spam, Email Routing and Email Deliverability; mail() does not confirm final delivery |
 | Fonts not loading | Google Fonts blocked by browser or network | Self-host fonts if needed |
 | 404 page not showing | `ErrorDocument` requires `mod_rewrite` or `AllowOverride` | Check Apache config |
 | Hero image slow | Large PNG served without CDN | Consider serving via cPanel's built-in CDN or Cloudflare |
