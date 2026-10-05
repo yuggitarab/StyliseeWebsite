@@ -29,6 +29,7 @@ StyliseeWebsite/
 ├── robots.txt                         # Includes the sitemap URL
 ├── sitemap.xml                        # Ten indexable public page URLs
 ├── .htaccess                          # Apache redirects, error page and caching
+├── .cpanel.yml                        # cPanel deployment tasks
 ├── .gitignore
 ├── README.md
 └── DEPLOY-CPANEL.md
@@ -83,7 +84,9 @@ After deploying the file to cPanel, submit sitemap.xml in Google Search Console.
 
 Serve the repository through a local HTTP server or a staging web host. Do not rely on opening index.html with file:// because asset URLs begin at the website root.
 
-See [DEPLOY-CPANEL.md](DEPLOY-CPANEL.md) for deployment instructions. Updating GitHub alone does not update the live cPanel website.
+See [DEPLOY-CPANEL.md](DEPLOY-CPANEL.md) for deployment instructions. The checked-in .cpanel.yml deploys the static pages and complete assets folder to /home/stylisee/public_html, without deleting unrelated files. It preserves an existing server .htaccess.
+
+After GitHub updates, use **cPanel → Git Version Control → Manage → Pull or Deploy → Update from Remote → Deploy HEAD Commit**. Updating GitHub or pulling into a separate repository directory alone does not update the live website.
 
 ## Cleanup safety
 

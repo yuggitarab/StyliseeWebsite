@@ -59,15 +59,25 @@ dig www.stylisee.com CNAME +short
 
 ### Option B — cPanel Git Version Control (recommended)
 
-1. Push this repository to a GitHub or Bitbucket remote.
-2. In cPanel → **Files → Git Version Control**, click **Create**.
-3. Set:
-   - **Clone URL**: your GitHub repo HTTPS URL
-   - **Repository Path**: the document root (e.g. `/home/<user>/public_html`)
-   - **Repository Name**: `stylisee-website`
-4. Click **Create** — cPanel clones the repo directly to `public_html`.
-5. For future updates, use the repository’s **Pull or Deploy** controls to update from the remote. The exact controls depend on your cPanel version and hosting setup.
-6. Automatic deployment is not configured by this repository; a GitHub commit alone does not guarantee that the live website updates. Confirm the document root contains the new files.
+The repository includes a checked-in .cpanel.yml deployment file targeting /home/stylisee/public_html. It copies the static website and all assets; it does not delete unrelated files or deploy the Replit workspace. Existing server .htaccess settings are preserved; the repository's .htaccess is copied only if one does not already exist. If you intentionally change .htaccess later, review and merge those changes into the server copy separately.
+
+**For the existing cPanel repository:**
+
+1. Open **Files → Git Version Control → Manage** for StyliseeWebsite.
+2. Ensure the checked-out branch is main.
+3. Open **Pull or Deploy** and click **Update from Remote**.
+4. After the pull completes, click **Deploy HEAD Commit**. Pulling alone does not deploy a repository stored outside the document root.
+5. Check the deployment status and logs for success.
+6. Visit https://stylisee.com/assets/index-C0j6UP0Y.css and confirm it returns CSS, not a 404 page. Check the homepage, images and navigation too.
+
+**For a new cPanel repository:**
+
+- Clone https://github.com/yuggitarab/StyliseeWebsite.git using cPanel Git Version Control.
+- Prefer a repository directory outside the public document root, such as /home/stylisee/repositories/StyliseeWebsite. Keep the domain's document root set to /home/stylisee/public_html.
+- Select main, then use **Update from Remote → Deploy HEAD Commit** as above.
+- If the existing repository is already cloned directly into public_html, the deployment file detects that location and skips copying files onto themselves. Do not move an existing repository just to use this configuration.
+
+**Important:** GitHub pushes do not automatically trigger cPanel pull deployment. Repeat both buttons after future GitHub updates unless a separate automation has been configured. Deployment also requires a clean cPanel repository working tree; direct edits inside the clone may block the pull. Do not discard those edits without backing them up and reviewing them.
 
 ### Option C — FTP
 
@@ -131,7 +141,7 @@ Do not modify the DNS record for `app.stylisee.com`.
 
 To update content after deployment:
 
-- **Git deploy**: edit files locally, push to GitHub, pull in cPanel Git Version Control.
+- **Git deploy**: push to GitHub, then use **Update from Remote** and **Deploy HEAD Commit** in cPanel Git Version Control.
 - **File Manager**: edit files directly in cPanel or re-upload changed files.
 - **FTP**: overwrite changed files via FTP client.
 
@@ -153,6 +163,8 @@ Test using a local HTTP server or staging host, not by opening index.html with f
 |---------|-------------|-----|
 | HTTP not redirecting to HTTPS | AutoSSL not complete or `mod_rewrite` disabled | Wait for SSL, or ask host to enable `mod_rewrite` |
 | www not redirecting to apex | `.htaccess` not being read | Check `AllowOverride All`; ensure `.htaccess` is in document root |
+| New CSS, scripts or images return 404 | HTML deployed without the full assets folder, or repository changes not deployed to the document root | Pull main and click Deploy HEAD Commit; inspect deployment logs and verify /home/stylisee/public_html/assets |
+| Deploy HEAD Commit unavailable | Missing .cpanel.yml, no branch, or dirty working tree | Pull the commit containing .cpanel.yml, select main, and review local changes before resolving them |
 | Fonts not loading | Google Fonts blocked by browser or network | Self-host fonts if needed |
 | 404 page not showing | `ErrorDocument` requires `mod_rewrite` or `AllowOverride` | Check Apache config |
 | Hero image slow | Large PNG served without CDN | Consider serving via cPanel's built-in CDN or Cloudflare |
