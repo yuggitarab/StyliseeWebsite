@@ -83,6 +83,97 @@ if (currencySelect) {
   renderPrices();
 }
 
+// Hero carousel: swipe or scroll natively; buttons, dots and keyboard move between slides.
+// Autoplays every 6 seconds unless the visitor prefers reduced motion, and pauses on hover,
+// focus, touch or the pause button.
+document.querySelectorAll('.carousel').forEach((carousel) => {
+  const track = carousel.querySelector('.carousel-track');
+  const slides = [...carousel.querySelectorAll('.slide')];
+  const dotsWrap = carousel.querySelector('.carousel-dots');
+  const url = carousel.querySelector('.carousel-url');
+  const pauseBtn = carousel.querySelector('[data-carousel="pause"]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let current = 0;
+  let timer = null;
+  let userPaused = reduceMotion;
+  let hovering = false;
+
+  const dots = slides.map((slide, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.setAttribute('aria-label', `Show slide ${i + 1}: ${slide.querySelector('strong').textContent}`);
+    dot.addEventListener('click', () => { goTo(i); stopForGood(); });
+    dotsWrap.append(dot);
+    return dot;
+  });
+
+  function render(index) {
+    current = index;
+    dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === index)));
+    slides.forEach((slide, i) => slide.setAttribute('aria-hidden', String(i !== index)));
+    if (url) url.textContent = slides[index].dataset.url;
+  }
+
+  // While a button-driven scroll animates, ignore the in-between scroll positions so rapid
+  // clicks count from the intended slide, not from wherever the animation has reached.
+  let settleTimer = null;
+  let animating = false;
+  function goTo(index) {
+    const next = (index + slides.length) % slides.length;
+    animating = true;
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(() => { animating = false; }, 800);
+    track.scrollTo({ left: next * track.clientWidth });
+    render(next);
+  }
+  track.addEventListener('scrollend', () => { clearTimeout(settleTimer); animating = false; });
+
+  function play() {
+    clearInterval(timer);
+    if (userPaused || hovering) return;
+    timer = setInterval(() => goTo(current + 1), 6000);
+  }
+
+  function setPaused(paused) {
+    userPaused = paused;
+    carousel.classList.toggle('paused', paused);
+    pauseBtn.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+    track.setAttribute('aria-live', paused ? 'polite' : 'off');
+    play();
+  }
+
+  // Any deliberate interaction stops autoplay so the visitor stays in control.
+  function stopForGood() { if (!userPaused) setPaused(true); }
+
+  carousel.querySelector('[data-carousel="prev"]').addEventListener('click', () => { goTo(current - 1); stopForGood(); });
+  carousel.querySelector('[data-carousel="next"]').addEventListener('click', () => { goTo(current + 1); stopForGood(); });
+  pauseBtn.addEventListener('click', () => setPaused(!userPaused));
+  carousel.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') { goTo(current + 1); stopForGood(); }
+    if (event.key === 'ArrowLeft') { goTo(current - 1); stopForGood(); }
+  });
+  carousel.addEventListener('mouseenter', () => { hovering = true; play(); });
+  carousel.addEventListener('mouseleave', () => { hovering = false; play(); });
+  carousel.addEventListener('focusin', () => { hovering = true; play(); });
+  carousel.addEventListener('focusout', () => { hovering = false; play(); });
+  track.addEventListener('touchstart', stopForGood, { passive: true });
+
+  // Keep dots in sync when the visitor swipes.
+  let scrollFrame = null;
+  track.addEventListener('scroll', () => {
+    if (animating) return;
+    cancelAnimationFrame(scrollFrame);
+    scrollFrame = requestAnimationFrame(() => {
+      const index = Math.round(track.scrollLeft / track.clientWidth);
+      if (index !== current && slides[index]) render(index);
+    });
+  }, { passive: true });
+  window.addEventListener('resize', () => { track.scrollLeft = current * track.clientWidth; });
+
+  render(0);
+  setPaused(userPaused);
+});
+
 // Contact form: preselect a topic from ?topic= and submit to the cPanel PHP endpoint
 const contactForm = document.querySelector('.contact-form form');
 const TOPICS = { pricing: 'Plans and billing' };
