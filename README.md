@@ -25,6 +25,7 @@ StyliseeWebsite/
 │   ├── site.css                       # All styles for every page
 │   ├── site.js                        # Menu, currency conversion, contact form
 │   └── images/
+│       ├── app/                       # App screenshots (demo data)
 │       ├── hero-styling.png
 │       └── stylisee-wordmark.png
 ├── contact-submit.php                 # cPanel enquiry submission endpoint
@@ -51,10 +52,10 @@ Each page folder contains index.html so Apache can serve clean URLs such as /pri
 ## Messaging rules
 
 - Only advertise features that exist in the live app. Planned features (for example appointment reminders, emailed invoices, time-slot booking) stay off the website until they ship.
-- Plan names, prices and limits must match the app's plan catalogue (currently Basic A$39, Pro A$59, Business A$99 per month).
+- Plan names, prices and limits must match the app's plan catalogue (currently Basic A$39/month or A$372/year, and Pro A$59/month or A$564/year; there is no Business plan).
 - Prices are in AUD. Other currencies are an approximate conversion only; the rates and their date are at the top of assets/site.js.
 - The main call to action is "Start your free trial" (14 days, no credit card) linking to https://app.stylisee.com/sign-up. Do not advertise the complimentary 60-day extension; it is granted case by case.
-- The home-page app illustrations are HTML mock-ups of real app screens. Replace them with real screenshots (using demo data, never real client data) when available.
+- App screenshots live in assets/images/app/. Capture them from the demo account only (never real client data), and crop out the account email, beta-access banner and any trademarked or third-party names or images.
 
 ## Domains and account links
 
