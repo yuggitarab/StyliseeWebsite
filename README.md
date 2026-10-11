@@ -26,8 +26,9 @@ StyliseeWebsite/
 │   ├── site.js                        # Menu, currency conversion, contact form
 │   └── images/
 │       ├── app/                       # App screenshots (demo data)
-│       ├── hero-styling.png
-│       └── stylisee-wordmark.png
+│       ├── hero-styling.jpg               # About page photo
+│       ├── stylisee-logo.png              # Header/footer logo (242x132, shown at 40–44px tall)
+│       └── stylisee-share.jpg             # 1200x630 link-preview image for social media
 ├── contact-submit.php                 # cPanel enquiry submission endpoint
 ├── favicon.png                        # Browser icon used by every page
 ├── favicon.ico                        # Same icon in .ico format (16–64 px) for browsers that request it
@@ -80,8 +81,9 @@ Do not change the application subdomain DNS while deploying the marketing websit
 | Contact topics | The `<select>` in contact/index.html **and** the allowed list in contact-submit.php must match exactly. |
 | Policies | The corresponding policy HTML file; preserve the legal content when changing layout. |
 | Navigation and footer | Every page's `<header>` and `<footer>`. |
-| Hero image | assets/images/hero-styling.png (used on About and for social sharing) |
-| Website wordmark | assets/images/stylisee-wordmark.png |
+| About photo | assets/images/hero-styling.jpg |
+| Social share image | assets/images/stylisee-share.jpg (1200x630), referenced by og:image on every page |
+| Website logo | assets/images/stylisee-logo.png (keep it small: it is shown at 40–44px tall) |
 | Browser favicon | favicon.png and favicon.ico. Pages reference them with ?v=N; after replacing the icon, regenerate favicon.ico and bump ?v= in every page so browsers drop their cached copy. |
 | Page URLs | Update navigation, canonical links and sitemap.xml together. |
 

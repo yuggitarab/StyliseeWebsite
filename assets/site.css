@@ -2,7 +2,6 @@
    Edit here; pages reference this file as /assets/site.css?v=YYYYMMDD.
    Bump the ?v= value in every page after editing, because .htaccess caches CSS for a year. */
 
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Raleway:wght@300;400;500;600&display=swap");
 
 :root {
   --ink: #080808;

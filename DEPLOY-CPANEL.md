@@ -189,7 +189,7 @@ Backend regression checks use a fake mail transport; they do not prove the cPane
 - Every page uses assets/site.css and assets/site.js, referenced with a `?v=YYYYMMDD` version. After changing either file, bump the version in every page so browsers fetch the new copy (CSS and JS are cached for a year).
 - The old exported files (index-*.css, marketing-*.js, style.css, main.js) are no longer used. Copies may remain on the server; they are harmless and can be removed once the new site is confirmed live.
 - Every page uses /favicon.png as the browser icon.
-- The website wordmark is assets/images/stylisee-wordmark.png.
+- The website logo is assets/images/stylisee-logo.png; the link-preview image is assets/images/stylisee-share.jpg.
 
 ---
 
