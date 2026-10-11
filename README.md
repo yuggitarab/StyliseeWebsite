@@ -13,7 +13,7 @@ StyliseeWebsite/
 ├── index.html                         # Home
 ├── pricing/index.html                 # Plans (AUD) with approximate currency conversion
 ├── about/index.html                   # About
-├── contact/index.html                 # Contact form and pilot applications
+├── contact/index.html                 # Contact form
 ├── privacy/index.html                 # Privacy policy
 ├── terms/index.html                   # Terms and conditions
 ├── refund-policy/index.html           # Refund policy
@@ -53,7 +53,7 @@ Each page folder contains index.html so Apache can serve clean URLs such as /pri
 - Only advertise features that exist in the live app. Planned features (for example appointment reminders, emailed invoices, time-slot booking) stay off the website until they ship.
 - Plan names, prices and limits must match the app's plan catalogue (currently Basic A$39, Pro A$59, Business A$99 per month).
 - Prices are in AUD. Other currencies are an approximate conversion only; the rates and their date are at the top of assets/site.js.
-- During the pilot, calls to action go to /contact/?topic=pilot, which preselects "Join the pilot programme".
+- The main call to action is "Start your free trial" (14 days, no credit card) linking to https://app.stylisee.com/sign-up. Do not advertise the complimentary 60-day extension; it is granted case by case.
 - The home-page app illustrations are HTML mock-ups of real app screens. Replace them with real screenshots (using demo data, never real client data) when available.
 
 ## Domains and account links
@@ -63,6 +63,7 @@ Each page folder contains index.html so Apache can serve clean URLs such as /pri
 | Marketing website | https://stylisee.com/ |
 | Application | https://app.stylisee.com/ |
 | Sign In | https://app.stylisee.com/sign-in |
+| Get started / Start free trial | https://app.stylisee.com/sign-up |
 
 Do not change the application subdomain DNS while deploying the marketing website.
 
@@ -72,7 +73,7 @@ Do not change the application subdomain DNS while deploying the marketing websit
 | --- | --- |
 | Page content | The page's index.html. |
 | Styles | assets/site.css, then bump `?v=` in every page. |
-| Pricing | pricing/index.html (prices, `data-aud` values and plan features) and the pricing teaser in index.html. Keep in line with the app's plans. |
+| Pricing | pricing/index.html (prices, `data-aud` monthly and `data-aud-yearly` values, and plan features) and the pricing teaser in index.html. Keep in line with the app's plans. |
 | Currency rates | AUD_RATES and RATES_UPDATED at the top of assets/site.js, then bump `?v=`. |
 | Contact topics | The `<select>` in contact/index.html **and** the allowed list in contact-submit.php must match exactly. |
 | Policies | The corresponding policy HTML file; preserve the legal content when changing layout. |
@@ -116,7 +117,7 @@ Before deleting an asset, check all HTML, CSS and JavaScript references, includi
 ## Before going live
 
 - Confirm prices and policy content are accurate.
-- Test Sign In, Join the pilot, menu, currency selector, FAQs and contact validation.
+- Test Sign In, Get started, menu, monthly/yearly switch, currency selector, FAQs and contact validation.
 - Check desktop and mobile layouts, keyboard navigation and colour contrast.
 - Verify the favicon, images, HTTPS redirects and real 404 response.
 - Confirm sitemap.xml and robots.txt are accessible.

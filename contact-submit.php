@@ -59,7 +59,7 @@ if (preg_match('/[\r\n\x00]/', $name . $email . $subject) || strpos($message, "\
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     respond(422, 'Please enter a valid email address.');
 }
-if (!in_array($subject, ['Join the pilot programme', 'Tell me about Stylisee','Plans and billing', 'Partnership enquiry', 'Something else'], true)) {
+if (!in_array($subject, ['Tell me about Stylisee', 'Plans and billing', 'Partnership enquiry', 'Something else'], true)) {
     respond(422, 'Please select a topic for your enquiry.');
 }
 if (isset($input['website']) && (!is_string($input['website']) || trim($input['website']) !== '')) {

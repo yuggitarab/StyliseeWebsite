@@ -212,7 +212,13 @@ em { font-style: italic; color: var(--gold-light); }
 @media (max-width: 860px) { .steps { grid-template-columns: 1fr; gap: 32px; } }
 
 /* Pricing */
-.currency-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; margin-bottom: 36px; color: var(--muted); font-size: 14px; }
+.pricing-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 40px; }
+.billing { display: inline-flex; padding: 4px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.billing button { min-height: 40px; padding: 8px 18px; border: 0; border-radius: 3px; background: none; color: var(--muted); font: 500 12px/1 var(--serif); letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; }
+.billing button.active { background: var(--wine); color: var(--ivory); }
+.billing .gold { margin-left: 6px; }
+.currency-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; color: var(--muted); font-size: 14px; }
+@media (max-width: 760px) { .pricing-controls { justify-content: center; } .currency-bar { justify-content: center; text-align: center; } }
 .currency-bar select { min-height: 40px; padding: 6px 34px 6px 12px; background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23c9a96e' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center; border: 1px solid var(--line); border-radius: var(--radius); color: var(--ivory); font: 500 14px var(--sans); appearance: none; -webkit-appearance: none; }
 .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
 .pricing-card { position: relative; display: flex; flex-direction: column; padding: 34px 30px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
@@ -230,7 +236,7 @@ em { font-style: italic; color: var(--gold-light); }
 .pricing-note { max-width: 720px; margin: 32px auto 0; color: var(--muted); font-size: 14px; text-align: center; }
 @media (max-width: 960px) { .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
 
-/* Pilot / CTA panel */
+/* Call-to-action panel */
 .cta-panel { position: relative; overflow: hidden; padding: 72px 48px; border: 1px solid var(--gold); border-radius: var(--radius); background: linear-gradient(135deg, rgba(106, 31, 44, 0.55), rgba(8, 8, 8, 0.9) 70%); text-align: center; }
 .cta-panel h2 { max-width: 760px; margin: 0 auto 18px; }
 .cta-panel .lead { max-width: 620px; margin: 0 auto 32px; }

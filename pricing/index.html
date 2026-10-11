@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pricing — Stylisee</title>
-<meta name="description" content="Stylisee plans for personal stylists start at A$39 per month. Compare Basic, Pro and Business, or join the pilot and use the full app free for 60 days.">
+<meta name="description" content="Stylisee plans for personal stylists start at A$39 per month. Compare Basic, Pro and Business, and start with a 14-day free trial.">
 <link rel="canonical" href="https://stylisee.com/pricing/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Pricing — Stylisee">
@@ -28,7 +28,7 @@
       <a class="nav-link" href="/contact/">Contact</a>
       <div class="nav-actions">
         <a class="btn btn-outline" href="https://app.stylisee.com/sign-in">Sign in</a>
-        <a class="btn btn-primary" href="/contact/?topic=pilot">Join the pilot</a>
+        <a class="btn btn-wine" href="https://app.stylisee.com/sign-up">Get started</a>
       </div>
     </nav>
   </div>
@@ -38,31 +38,37 @@
   <section class="page-hero">
     <div class="container">
       <div class="eyebrow">Pricing</div>
-      <h1>Simple monthly plans for your <em>styling business.</em></h1>
-      <p class="lead">One subscription covers your clients, bookings, payments, invoices and booking page. No setup fees and no hidden extras.</p>
+      <h1>Simple plans for your <em>styling business.</em></h1>
+      <p class="lead">One subscription covers your clients, bookings, payments, invoices and booking page. Every plan starts with a 14-day free trial, with no credit card required.</p>
     </div>
   </section>
 
   <section class="section" style="padding-top:24px" aria-label="Plans">
     <div class="container">
-      <div class="currency-bar">
-        <label for="currency">Prices in Australian dollars. Show an approximate conversion in</label>
-        <select id="currency">
-          <option value="AUD">AUD (A$)</option>
-          <option value="NZD">NZD (NZ$)</option>
-          <option value="USD">USD (US$)</option>
-          <option value="GBP">GBP (£)</option>
-          <option value="EUR">EUR (€)</option>
-          <option value="CAD">CAD (C$)</option>
-        </select>
+      <div class="pricing-controls">
+        <div class="billing" role="group" aria-label="Billing frequency">
+          <button type="button" class="active" aria-pressed="true" data-billing="monthly">Monthly</button>
+          <button type="button" aria-pressed="false" data-billing="yearly">Yearly <span class="gold">save 20%</span></button>
+        </div>
+        <div class="currency-bar">
+          <label for="currency">Prices in AUD. Show approximate conversion in</label>
+          <select id="currency">
+            <option value="AUD">AUD (A$)</option>
+            <option value="NZD">NZD (NZ$)</option>
+            <option value="USD">USD (US$)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="CAD">CAD (C$)</option>
+          </select>
+        </div>
       </div>
 
       <div class="pricing-grid">
         <article class="pricing-card">
           <div class="plan-name">Basic</div>
           <p class="plan-desc">Essential tools for stylists starting their journey.</p>
-          <div class="price-row"><span class="price" data-aud="39">A$39</span><span class="per">/ month</span></div>
-          <p class="price-approx" aria-live="polite">Billed in Australian dollars</p>
+          <div class="price-row"><span class="price" data-aud="39" data-aud-yearly="31">A$39</span><span class="per">/ month</span></div>
+          <p class="price-approx" aria-live="polite">Billed monthly in Australian dollars</p>
           <ul class="ticks plan-features">
             <li>Up to 20 clients</li>
             <li>Up to 50 bookings a month</li>
@@ -72,15 +78,15 @@
             <li>Analytics overview</li>
             <li>Email support</li>
           </ul>
-          <a class="btn btn-outline plan-button" href="/contact/?topic=pilot">Join the pilot</a>
+          <a class="btn btn-outline plan-button" href="https://app.stylisee.com/sign-up">Start free trial</a>
         </article>
 
         <article class="pricing-card featured">
           <span class="plan-ribbon">Most popular</span>
           <div class="plan-name">Pro</div>
           <p class="plan-desc">The full style toolkit for growing businesses.</p>
-          <div class="price-row"><span class="price" data-aud="59">A$59</span><span class="per">/ month</span></div>
-          <p class="price-approx" aria-live="polite">Billed in Australian dollars</p>
+          <div class="price-row"><span class="price" data-aud="59" data-aud-yearly="47">A$59</span><span class="per">/ month</span></div>
+          <p class="price-approx" aria-live="polite">Billed monthly in Australian dollars</p>
           <ul class="ticks plan-features">
             <li>Everything in Basic, plus:</li>
             <li>Unlimited clients and bookings</li>
@@ -92,21 +98,21 @@
             <li>Client feedback collection</li>
             <li>Priority support</li>
           </ul>
-          <a class="btn btn-primary plan-button" href="/contact/?topic=pilot">Join the pilot</a>
+          <a class="btn btn-primary plan-button" href="https://app.stylisee.com/sign-up">Start free trial</a>
         </article>
 
         <article class="pricing-card">
           <div class="plan-name">Business</div>
           <p class="plan-desc">For established studios working as a team.</p>
-          <div class="price-row"><span class="price" data-aud="99">A$99</span><span class="per">/ month</span></div>
-          <p class="price-approx" aria-live="polite">Billed in Australian dollars</p>
+          <div class="price-row"><span class="price" data-aud="99" data-aud-yearly="79">A$99</span><span class="per">/ month</span></div>
+          <p class="price-approx" aria-live="polite">Billed monthly in Australian dollars</p>
           <ul class="ticks plan-features">
             <li>Everything in Pro, plus:</li>
             <li>Multiple team members</li>
             <li>Owner, assistant, editor and view-only roles</li>
             <li>Shared clients, bookings and services</li>
           </ul>
-          <a class="btn btn-outline plan-button" href="/contact/?topic=pilot">Join the pilot</a>
+          <a class="btn btn-outline plan-button" href="https://app.stylisee.com/sign-up">Start free trial</a>
         </article>
       </div>
 
@@ -114,15 +120,16 @@
     </div>
   </section>
 
-  <section class="section-sm" aria-labelledby="pilot-title">
+  <section class="section-sm" aria-labelledby="cta-title">
     <div class="container">
       <div class="cta-panel">
-        <div class="eyebrow">Pilot programme</div>
-        <h2 id="pilot-title">Try every feature <em>free for 60 days.</em></h2>
-        <p class="lead">Paid plans open after our pilot. Pilot members get the full app with no card required, and keep all their data when the pilot ends.</p>
+        <div class="eyebrow">Try it first</div>
+        <h2 id="cta-title">See how it fits <em>your practice.</em></h2>
+        <p class="lead">Add your services, set up your booking page and build your first client profile. No credit card means there's nothing to cancel if it isn't right for you.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary btn-lg" href="/contact/?topic=pilot">Apply to join the pilot</a>
+          <a class="btn btn-primary btn-lg" href="https://app.stylisee.com/sign-up">Start your free trial</a>
         </div>
+        <div class="reassurance"><span>14-day free trial</span><span>No credit card required</span></div>
       </div>
     </div>
   </section>
@@ -135,20 +142,20 @@
       </div>
       <div class="faq-list">
         <details>
-          <summary>How does the pilot work?</summary>
-          <p>Apply through our contact form and we'll set up your account with complimentary access to the full app for 60 days. There is no card to enter and nothing is charged. You'll see how many days remain inside the app.</p>
+          <summary>Can I try Stylisee before I commit?</summary>
+          <p>Yes. Every plan begins with a 14-day free trial, with no credit card required. Explore the workspace, add your services, and see how it fits your practice.</p>
         </details>
         <details>
-          <summary>What happens when the pilot ends?</summary>
-          <p>Your clients, bookings and settings are kept safe. You'll be able to continue on a paid plan once billing opens, and we'll let you know before anything changes.</p>
+          <summary>Can I change plans later?</summary>
+          <p>Yes. Your practice changes as it grows, and your plan can change with it. Move up or down as your business changes.</p>
+        </details>
+        <details>
+          <summary>Is there a contract?</summary>
+          <p>No long-term contracts. Choose monthly or yearly billing, and save 20% when you pay yearly.</p>
         </details>
         <details>
           <summary>Which currency will I be charged in?</summary>
           <p>All plans are priced in Australian dollars (AUD). The currency selector shows an approximate conversion to help you compare. Your bank or card provider sets the final exchange rate.</p>
-        </details>
-        <details>
-          <summary>Can I change plans later?</summary>
-          <p>Yes. Start with the plan that suits your practice today and move up or down as your business changes.</p>
         </details>
         <details>
           <summary>Does Stylisee work for colour analysts and image consultants?</summary>
@@ -174,7 +181,7 @@
       <div class="footer-links">
         <a href="/#features">Features</a>
         <a href="/pricing/">Pricing</a>
-        <a href="/contact/?topic=pilot">Join the pilot</a>
+        <a href="https://app.stylisee.com/sign-up">Start free trial</a>
         <a href="https://app.stylisee.com/sign-in">Sign in</a>
       </div>
     </div>

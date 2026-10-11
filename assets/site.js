@@ -40,24 +40,37 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
-// Pricing: approximate conversion shown under each AUD price
+// Pricing: monthly/yearly switch and approximate conversion under each AUD price.
+// Prices carry data-aud (monthly) and data-aud-yearly (per month, billed yearly).
 const currencySelect = document.querySelector('#currency');
+const billingButtons = document.querySelectorAll('.billing button');
+let billing = 'monthly';
 
-function showConversions(code) {
+function renderPrices() {
+  const code = currencySelect?.value || 'AUD';
   const target = AUD_RATES[code] || AUD_RATES.AUD;
   document.querySelectorAll('[data-aud]').forEach((price) => {
-    const note = price.closest('.pricing-card, .price-teaser')?.querySelector('.price-approx');
+    const aud = Number(billing === 'yearly' ? price.dataset.audYearly : price.dataset.aud);
+    price.textContent = `A$${aud}`;
+    const note = price.closest('.pricing-card')?.querySelector('.price-approx');
     if (!note) return;
-    if (code === 'AUD') {
-      note.textContent = 'Billed in Australian dollars';
-      return;
-    }
-    const converted = Math.round(Number(price.dataset.aud) * target.rate);
-    note.textContent = `≈ ${target.symbol}${converted} ${code} / month (approx.)`;
+    const period = billing === 'yearly' ? `Billed yearly (A$${aud * 12})` : 'Billed monthly';
+    note.textContent = code === 'AUD'
+      ? `${period} in Australian dollars`
+      : `≈ ${target.symbol}${Math.round(aud * target.rate)} ${code} / month (approx.) · ${period}`;
   });
   const updated = document.querySelector('[data-rates-updated]');
   if (updated) updated.textContent = RATES_UPDATED;
 }
+
+billingButtons.forEach((button) => button.addEventListener('click', () => {
+  billing = button.dataset.billing;
+  billingButtons.forEach((b) => {
+    b.classList.toggle('active', b === button);
+    b.setAttribute('aria-pressed', String(b === button));
+  });
+  renderPrices();
+}));
 
 if (currencySelect) {
   let saved = null;
@@ -65,14 +78,14 @@ if (currencySelect) {
   if (saved && AUD_RATES[saved]) currencySelect.value = saved;
   currencySelect.addEventListener('change', () => {
     try { localStorage.setItem('stylisee-currency', currencySelect.value); } catch { /* storage unavailable */ }
-    showConversions(currencySelect.value);
+    renderPrices();
   });
-  showConversions(currencySelect.value);
+  renderPrices();
 }
 
 // Contact form: preselect a topic from ?topic= and submit to the cPanel PHP endpoint
 const contactForm = document.querySelector('.contact-form form');
-const TOPICS = { pilot: 'Join the pilot programme', pricing: 'Plans and billing' };
+const TOPICS = { pricing: 'Plans and billing' };
 const topicParam = new URLSearchParams(window.location.search).get('topic');
 const subjectSelect = contactForm?.querySelector('#subject');
 if (subjectSelect && TOPICS[topicParam]) subjectSelect.value = TOPICS[topicParam];
