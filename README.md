@@ -30,6 +30,7 @@ StyliseeWebsite/
 │       └── stylisee-wordmark.png
 ├── contact-submit.php                 # cPanel enquiry submission endpoint
 ├── favicon.png                        # Browser icon used by every page
+├── favicon.ico                        # Same icon in .ico format (16–64 px) for browsers that request it
 ├── robots.txt                         # Includes the sitemap URL
 ├── sitemap.xml                        # Ten indexable public page URLs
 ├── .htaccess                          # Apache redirects, error page and caching
@@ -81,7 +82,7 @@ Do not change the application subdomain DNS while deploying the marketing websit
 | Navigation and footer | Every page's `<header>` and `<footer>`. |
 | Hero image | assets/images/hero-styling.png (used on About and for social sharing) |
 | Website wordmark | assets/images/stylisee-wordmark.png |
-| Browser favicon | favicon.png. Every page references /favicon.png. |
+| Browser favicon | favicon.png and favicon.ico. Pages reference them with ?v=N; after replacing the icon, regenerate favicon.ico and bump ?v= in every page so browsers drop their cached copy. |
 | Page URLs | Update navigation, canonical links and sitemap.xml together. |
 
 ## Sitemap
