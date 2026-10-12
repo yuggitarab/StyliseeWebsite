@@ -54,10 +54,16 @@ function renderPrices() {
     price.textContent = `A$${aud}`;
     const note = price.closest('.pricing-card')?.querySelector('.price-approx');
     if (!note) return;
-    const period = billing === 'yearly' ? `Billed yearly (A$${aud * 12})` : 'Billed monthly';
-    note.textContent = code === 'AUD'
-      ? `${period} in Australian dollars`
-      : `≈ ${target.symbol}${Math.round(aud * target.rate)} ${code} / month (approx.) · ${period}`;
+    const convert = (amount) => `${target.symbol}${Math.round(amount * target.rate).toLocaleString('en-AU')} ${code}`;
+    if (code === 'AUD') {
+      note.textContent = billing === 'yearly'
+        ? `A$${(aud * 12).toLocaleString('en-AU')} billed yearly in Australian dollars`
+        : 'Billed monthly in Australian dollars';
+    } else {
+      note.textContent = billing === 'yearly'
+        ? `≈ ${convert(aud)} / month · ≈ ${convert(aud * 12)} billed yearly (approx.)`
+        : `≈ ${convert(aud)} / month, billed monthly (approx.)`;
+    }
   });
   const updated = document.querySelector('[data-rates-updated]');
   if (updated) updated.textContent = RATES_UPDATED;
