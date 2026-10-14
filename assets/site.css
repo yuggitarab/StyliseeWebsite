@@ -158,12 +158,35 @@ em { font-style: italic; color: var(--gold-light); }
 .carousel-dots button[aria-current="true"]::before { width: 22px; background: var(--gold); }
 @media (prefers-reduced-motion: reduce) { .carousel-track { scroll-behavior: auto; } }
 
-/* "Replaces" strip */
-.replace-strip { padding: 34px 0; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); background: var(--surface); }
-.replace-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 22px; text-align: center; }
-.replace-inner > span:first-child { color: var(--gold); font: 500 12px/1.4 var(--serif); letter-spacing: 0.2em; text-transform: uppercase; }
-.replace-item { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--burgundy-bright); text-decoration-thickness: 2px; }
-.replace-result { color: var(--ivory); font-weight: 500; }
+/* Value strip: rotating outcome statements. Lines stack in one grid cell so the height
+   never jumps; the active progress bar's fill animation drives the timing (see site.js). */
+.value-strip { padding: 56px 0 40px; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); background: radial-gradient(ellipse at 50% 0%, rgba(106, 31, 44, 0.22), transparent 70%), var(--surface); }
+.value-inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.value-inner .eyebrow { margin-bottom: 14px; }
+.value-stage { display: grid; width: 100%; max-width: 860px; }
+.value-line { grid-area: 1 / 1; align-self: center; margin: 0; font: 400 clamp(22px, 3vw, 34px)/1.3 var(--serif); letter-spacing: 0.02em; color: var(--ivory); opacity: 0; transform: translateY(14px); filter: blur(6px); transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s ease; pointer-events: none; }
+.value-line.is-active { opacity: 1; transform: none; filter: none; pointer-events: auto; }
+.value-line.is-leaving { transform: translateY(-14px); }
+.value-controls { display: flex; align-items: center; gap: 14px; margin-top: 26px; }
+.value-progress { display: flex; gap: 6px; }
+.value-progress button { width: 36px; height: 32px; display: grid; align-items: center; padding: 0; border: 0; background: none; cursor: pointer; }
+.value-progress button span { display: block; height: 2px; border-radius: 2px; background: var(--line); overflow: hidden; }
+.value-progress button span::after { content: ""; display: block; height: 100%; width: 100%; background: var(--gold); transform: scaleX(0); transform-origin: left; }
+.value-progress button:hover span { background: var(--muted); }
+.value-progress button.is-done span::after { transform: none; }
+.value-progress button[aria-current="true"] span::after { animation: value-fill 5.5s linear forwards; }
+.value-strip.is-held .value-progress button[aria-current="true"] span::after { animation-play-state: paused; }
+.value-strip.paused .value-progress button[aria-current="true"] span::after { animation: none; transform: none; }
+@keyframes value-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.value-pause { width: 32px; height: 32px; }
+.value-pause svg { width: 12px; height: 12px; }
+.value-pause .icon-play, .value-strip.paused .value-pause .icon-pause { display: none; }
+.value-strip.paused .value-pause .icon-play { display: block; }
+@media (max-width: 560px) { .value-progress button { width: 26px; } }
+@media (prefers-reduced-motion: reduce) {
+  .value-line { transform: none; filter: none; transition: opacity 0.3s; }
+  .value-line.is-leaving { transform: none; }
+}
 
 /* Outcome cards */
 .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }

@@ -180,6 +180,58 @@ document.querySelectorAll('.carousel').forEach((carousel) => {
   setPaused(userPaused);
 });
 
+// Value strip: one statement at a time. The active progress bar's CSS fill animation sets
+// the pace, and its animationend moves to the next line, so pausing the animation (hover,
+// focus) pauses the rotation too. No autoplay when the visitor prefers reduced motion.
+document.querySelectorAll('.value-strip').forEach((strip) => {
+  const lines = [...strip.querySelectorAll('.value-line')];
+  const stage = strip.querySelector('.value-stage');
+  const progress = strip.querySelector('.value-progress');
+  const pauseBtn = strip.querySelector('.value-pause');
+  let current = 0;
+
+  const bars = lines.map((line, i) => {
+    const bar = document.createElement('button');
+    bar.type = 'button';
+    bar.setAttribute('aria-label', `Show statement ${i + 1}: ${line.textContent}`);
+    bar.append(document.createElement('span'));
+    bar.addEventListener('click', () => { show(i); setPaused(true); });
+    bar.addEventListener('animationend', () => { if (i === current) show(current + 1); });
+    progress.append(bar);
+    return bar;
+  });
+
+  function show(index) {
+    const next = (index + lines.length) % lines.length;
+    lines.forEach((line, i) => {
+      line.classList.toggle('is-leaving', i === current && i !== next);
+      line.classList.toggle('is-active', i === next);
+      line.setAttribute('aria-hidden', String(i !== next));
+    });
+    bars.forEach((bar, i) => {
+      bar.classList.toggle('is-done', i < next);
+      bar.setAttribute('aria-current', String(i === next));
+    });
+    current = next;
+  }
+
+  function setPaused(paused) {
+    strip.classList.toggle('paused', paused);
+    pauseBtn.setAttribute('aria-label', paused ? 'Play statements' : 'Pause statements');
+    stage.setAttribute('aria-live', paused ? 'polite' : 'off');
+  }
+
+  const hold = (held) => strip.classList.toggle('is-held', held);
+  strip.addEventListener('mouseenter', () => hold(true));
+  strip.addEventListener('mouseleave', () => hold(false));
+  strip.addEventListener('focusin', () => hold(true));
+  strip.addEventListener('focusout', () => hold(false));
+  pauseBtn.addEventListener('click', () => setPaused(!strip.classList.contains('paused')));
+
+  show(0);
+  setPaused(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+});
+
 // Contact form: preselect a topic from ?topic= and submit to the cPanel PHP endpoint
 const contactForm = document.querySelector('.contact-form form');
 const TOPICS = { pricing: 'Plans and billing' };
